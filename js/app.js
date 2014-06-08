@@ -4,12 +4,26 @@ App = Ember.Application.create({
 
 // ROUTER
 App.Router.map(function(){
-  this.resource('bullets',{ path: '/:bullet_id' });
+  //this.resource('bullets');
+  //this.resource('bullets');
+  this.resource('bullets', { path: '/bullets/:post_id' });
 });
 
 App.BulletsRoute = Ember.Route.extend({
-  model: function(){
-    return App.Bullets;
+  model: function(params){
+    // var obj = this.store.find('bullets', params.post_id); //The ember data way
+    var obj = App.Bullets;
+    for (var prop in obj) {
+      if(obj.hasOwnProperty(prop)){
+        //alert(prop + " = " + obj[prop].id);
+        if(obj[prop].id === 1){
+          return obj[prop];
+        }
+      }
+   }
+   return App.Bullets;
+   //return App.Bullets.find(params.bullet_id);
+   //return this.get('model');
   }
 });
 
